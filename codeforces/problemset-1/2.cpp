@@ -14,30 +14,26 @@ void solve()
  {
     cin>>b[i];
  }
- ll cnt=0;
- for(int i=0;i<n;i++)
- {
-    if(a[i]==b[i])
+
+ll fx=0,fy=0,fz=0,res=0;
+for(int i=0;i<n;i++)
+{
+    if(a[i]!=b[i])
     {
-        cnt++;
-    }
- }
- if(cnt==n) { cout<<0<<endl; return ; }
- if(cnt==0) { cout<<1<<endl; return ; }
- 
- ll dx=0,dy=0;
- for(int i=0;i<n;i++)
- {
-    if(a[i]==1)
-    {
-        dx++;
+        if(a[i]==1)fx++;
+        else fy++;
     }
     else 
     {
-        dy++;
+        if(a[i]) fz++;
+        else res++;
     }
- }
-
+}
+if(!fy && !fx)cout<<0<<endl;
+else if(fx%2) cout<<1<<endl;
+else if(res && fz) cout<<2<<endl;
+else if(fx>0) cout<<2<<endl;
+else cout<<-1<<endl;
 
 
 
