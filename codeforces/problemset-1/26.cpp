@@ -2,13 +2,55 @@
 
 using namespace std;
 typedef long long ll;
+
+const int N = 3e5 + 12;
+using namespace std;
+
+int n, x, a[N], p[N];
+ll cnt[N];
+
+vector <int> vc[N];
 void solve()
 {
-ll n,m;
-cin>>n>>m;
-vector<ll>a(n);
-for(int i=0;i<n;i++){cin>>a[i];}
+	cin >> n >> x;
+	
+	for(int i = 1; i <= n; i ++)
+	{
+		cin >> a[i];
+		int r = a[i];
+		a[i] = __gcd(a[i], x);
+		
+		for(auto j : vc[a[i]])
+		{
+			cnt[j] += r;
+		}
+	}
+	ll ans = 0;
+	
+	for(auto j : vc[x])
+	{
+		ans = max(ans, cnt[j]);
+	}
+	for(int i = 1; i <= n; i ++)
+	{
+		for(auto j : vc[a[i]]) cnt[j] = 0;
+	}
+	cout << ans << '\n';
 }
 int main() {
-int t;cin >> t;while (t--) {solve();}
+    for(int i = 2; i <= N - 12; i ++)
+	{
+		if(!p[i])
+		{
+			for(int j = i; j <= N - 12; j += i)
+			{
+				p[j] = 1;
+				vc[j].push_back(i);
+			}
+		}
+	}
+int t;cin >> t;while (t--) {
+    solve();
+
+}
 }
